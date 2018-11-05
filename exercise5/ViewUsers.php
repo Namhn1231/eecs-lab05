@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("database_URL", "n675n055", "NewPass", "n675n055");
+$mysqli = new mysqli("mysql.eecs.ku.edu", "n675n055", "nnguyen", "n675n055");
 
 /* check connection */
 if ($mysqli->connect_errno) {
@@ -7,20 +7,14 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-$query = "SELECT user_id FROM User ORDER by ID DESC LIMIT 50,5";
+echo "Users currently existing:<br>";
 
-if ($result = $mysqli->query($query)) {
-
-    /* fetch associative array */
-    while ($row = $result->fetch_assoc()) {
-        printf ("%s (%s)\n", $row["user_id"],);
-    }
-
-    /* free result set */
-    $result->free();
+$result = mysqli_query($mysqli, "SELECT user_id FROM Users");
+while($row = mysqli_fetch_array($result))
+{
+	echo $row[user_id] . "<br>";
 }
 
 /* close connection */
 $mysqli->close();
 ?>
-
